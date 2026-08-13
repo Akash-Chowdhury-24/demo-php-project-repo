@@ -1,6 +1,6 @@
 {
   "project": "demo-php-project",
-  "version": "2026.08.13.0000",
+  "version": "2026.08.14.0240",
   "projectType": "backend",
   "artifact": true,
   "storage": [
@@ -16,7 +16,7 @@
       "trigger": "push",
       "config": {
         "deploymentType": "server",
-        "host": "65.2.161.175",
+        "host": "15.207.89.108",
         "user": "ec2-user",
         "keyPath": "C:\\Users\\diabu\\Downloads\\deployhub-test-key-pair.pem",
         "sshPort": 22,
@@ -38,7 +38,7 @@
         "kubeconfig": "~/.kube/ec2-k3s-config.yaml",
         "kubeContext": "default",
         "kubeNamespace": "demo-php-project-production",
-        "dockerImageName": "akashchowdhury24/demo-php-project-image",
+        "dockerImageName": "akashchowdhury24/demo-php-project-image-2",
         "dockerRegistryUrl": ""
       }
     }
