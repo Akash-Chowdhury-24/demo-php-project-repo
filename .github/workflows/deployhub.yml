@@ -23,15 +23,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          tools: composer
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
       - name: Setup kubectl
+        if: github.event_name == 'workflow_dispatch' && (inputs.environment == 'production' || inputs.environment == 'all' || inputs.environment == '')
         uses: azure/setup-kubectl@v4
         with:
           version: 'v1.30.4'
 
       - name: Configure kubeconfig
+        if: github.event_name == 'workflow_dispatch' && (inputs.environment == 'production' || inputs.environment == 'all' || inputs.environment == '')
         env:
           KUBECONFIG_SECRET: ${{ secrets.PRODUCTION_KUBECONFIG }}
         run: |
