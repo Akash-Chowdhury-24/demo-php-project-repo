@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-php-project
+  namespace: demo-php-project-production
+spec:
+  # Adjust replica count as needed
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demo-php-project
+  template:
+    metadata:
+      labels:
+        app: demo-php-project
+    spec:
+      containers:
+      - name: demo-php-project
+        # Image tag is overwritten at deploy time (kubectl set image uses the resolved build tag)
+        image: akashchowdhury24/demo-php-project-image-2:2026.08.14.0348
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"

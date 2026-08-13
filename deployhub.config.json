@@ -1,0 +1,73 @@
+{
+  "project": "demo-php-project",
+  "version": "2026.08.14.0348",
+  "projectType": "backend",
+  "artifact": true,
+  "storage": [
+    "aws"
+  ],
+  "defaultEnvironment": "development",
+  "unprefixedSecretEnvironment": "development",
+  "legacyHistoryMigrated": true,
+  "environments": {
+    "development": {
+      "enabled": true,
+      "method": "ec2",
+      "trigger": "push",
+      "config": {
+        "deploymentType": "server",
+        "host": "15.207.89.108",
+        "user": "ec2-user",
+        "keyPath": "C:\\Users\\diabu\\Downloads\\deployhub-test-key-pair.pem",
+        "sshPort": 22,
+        "ec2InstanceId": "i-07ce09b1fdb36422d",
+        "awsRegion": "ap-south-1",
+        "deployPath": "/var/www/demo-php-project",
+        "path": "/var/www/demo-php-project",
+        "appName": "demo-php-project",
+        "framework": "laravel",
+        "port": 80
+      }
+    },
+    "production": {
+      "enabled": true,
+      "method": "kubernetes",
+      "trigger": "manual",
+      "config": {
+        "deploymentType": "server",
+        "kubeconfig": "~/.kube/ec2-k3s-config.yaml",
+        "kubeContext": "default",
+        "kubeNamespace": "demo-php-project-production",
+        "dockerImageName": "akashchowdhury24/demo-php-project-image-2",
+        "dockerRegistryUrl": ""
+      }
+    }
+  },
+  "healthCheck": {
+    "url": "",
+    "timeout": 30
+  },
+  "notifications": {
+    "slack": false,
+    "email": false,
+    "webhook": false
+  },
+  "pipeline": {
+    "test": true,
+    "docker": true,
+    "deploy": true,
+    "verify": false,
+    "notify": false
+  },
+  "artifactRetention": 10,
+  "cli": {
+    "source": "npm:@akash-chowdhury-24/deployhub"
+  },
+  "framework": "laravel",
+  "language": "php",
+  "buildCommand": null,
+  "startCommand": "php artisan serve",
+  "buildOutput": ".",
+  "port": 80,
+  "docker": true
+}
