@@ -3,7 +3,7 @@
 FROM composer:2 AS vendor
 WORKDIR /app
 COPY composer.json composer.lock* ./
-RUN composer install --no-dev --optimize-autoloader --no-interaction --ignore-platform-reqs
+RUN composer install --no-dev --optimize-autoloader --no-interaction --ignore-platform-reqs --no-scripts
 
 FROM php:8.2-cli-alpine
 WORKDIR /var/www/html
@@ -11,8 +11,10 @@ RUN apk add --no-cache icu-libs libzip \
   && apk add --no-cache --virtual .build-deps $PHPIZE_DEPS icu-dev libzip-dev oniguruma-dev \
   && docker-php-ext-install -j$(nproc) pdo_mysql mbstring zip opcache \
   && apk del .build-deps
+COPY --from=vendor /usr/bin/composer /usr/bin/composer
 COPY --from=vendor /app/vendor ./vendor
 COPY . .
+RUN composer dump-autoload --optimize --no-dev --no-interaction
 RUN chown -R www-data:www-data storage bootstrap/cache || true
 EXPOSE 80
 CMD ["php","artisan","serve","--host=0.0.0.0","--port=80"]
