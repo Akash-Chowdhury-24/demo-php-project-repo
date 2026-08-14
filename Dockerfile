@@ -14,7 +14,10 @@ RUN apk add --no-cache icu-libs libzip \
   && apk del .build-deps
 COPY --from=vendor /app/vendor ./vendor
 COPY . .
-RUN composer dump-autoload --optimize --no-dev --no-interaction
-RUN chown -R www-data:www-data storage bootstrap/cache || true
+RUN composer dump-autoload --optimize --no-dev --no-interaction \
+  && mkdir -p storage/framework/{cache/data,sessions,views,testing} storage/logs storage/app/{public,private} bootstrap/cache \
+  && php -r "file_exists('database/database.sqlite') || touch('database/database.sqlite');" \
+  && php scripts/fix-permissions.php \
+  && chown -R www-data:www-data storage bootstrap/cache database || true
 EXPOSE 80
 CMD ["php","artisan","serve","--host=0.0.0.0","--port=80"]
