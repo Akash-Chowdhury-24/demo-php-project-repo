@@ -16,7 +16,7 @@
       "trigger": "push",
       "config": {
         "deploymentType": "server",
-        "host": "15.207.89.108",
+        "host": "3.7.70.192",
         "user": "ec2-user",
         "keyPath": "C:\\Users\\diabu\\Downloads\\deployhub-test-key-pair.pem",
         "sshPort": 22,
